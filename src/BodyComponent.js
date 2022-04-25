@@ -53,7 +53,7 @@ function BodyComponent() {
             </Col> */}
         <Col md={12}>
           <div className="image-wrapper float-start pe-4 ">
-            <Image src={imageUrl} fluid />
+            <Image src={imageUrl} fluid rounded/>
           </div>
 
           <div >
@@ -108,12 +108,14 @@ function BodyComponent() {
         // render the EMBEDDED_ASSET as you need
 
         return (
-          <Image fluid
+          <div className="image-wrapper float-start pe-4 ">
+         <Image fluid rounded
             src={`https://${node.data.target.fields.file.url}`}
             height={node.data.target.fields.file.details.image.height}
             width={node.data.target.fields.file.details.image.width}
-            alt={node.data.target.fields.description}
-          />
+            alt={node.data.target.fields.description} />
+        </div>
+      
         );
       }
     }
