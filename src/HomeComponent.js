@@ -48,61 +48,64 @@ function HomeComponent() {
         imageUrl = item.fields.image[0].fields.file.url;
       }
 
-      contentsArray.push(<Row style={{ marginTop: "20px", marginBottom: "20px" }}>
-        {/* <Col md={4} >
-              <Image src="https://source.unsplash.com/500x200/?cars" fluid />
-            </Col> */}
-        <Col md={12}>
-          <div className="image-wrapper float-start pe-4 ">
-            <Image src={imageUrl} fluid rounded/>
+      // contentsArray.push(<Row style={{ marginTop: "20px", marginBottom: "20px" }}>
+        contentsArray.push(
+          <Col md={4} className="mt-3">
+            <div class="card" style={{width: "18re"}}>
+            <Image src={imageUrl} class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">{item.fields.name}</h5>
+              {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a> */}
+            </div>
           </div>
 
-          <div >
-            <div class="col-md-12">
-              <h3>{item.fields.name}</h3>
-            </div>
-            <div className="col-md-12">
-              {/* <div dangerouslySetInnerHTML={{ __html: documentToHtmlString(rawRichTextField) }}> */}
-              <div>
-                {documentToReactComponents(item.fields.description, renderOptions)}
-                {/* {documentToReactComponents(item.fields.description, renderOptions)} */}
-              </div>
-            </div>
-          </div>
         </Col>
-      </Row>)
+      //  <Col md={8}>
+      //     <div class="col-md-12">
+      //       <h3>{item.fields.name}</h3>
+      //     </div>
+      //     <div className="col-md-12">
+      //       <div>
+      //         {documentToReactComponents(item.fields.description, renderOptions)}
+      //       </div>
+      //     </div>
+      //   </Col>
+   
 
 
-    })
+    )
+  });
+  
 
-    return contentsArray;
+    return <Row>{contentsArray}</Row>;
   }
 
   const renderOptions = {
     renderNode: {
       [INLINES.EMBEDDED_ENTRY]: (node, children) => {
-          // target the contentType of the EMBEDDED_ENTRY to display as you need
-      if (node.data.target.sys.contentType.sys.id === "codeBlock") {
-        return (
-          <pre>
-            <code>{node.data.target.fields.code}</code>
-          </pre>
-        );
-      }
+        // target the contentType of the EMBEDDED_ENTRY to display as you need
+        if (node.data.target.sys.contentType.sys.id === "codeBlock") {
+          return (
+            <pre>
+              <code>{node.data.target.fields.code}</code>
+            </pre>
+          );
+        }
 
-      if (node.data.target.sys.contentType.sys.id === "videoEmbed") {
-        return (
-          <iframe
-            src={node.data.target.fields.embedUrl}
-            height="100%"
-            width="100%"
-            frameBorder="0"
-            scrolling="no"
-            title={node.data.target.fields.title}
-            allowFullScreen={true}
-          />
-        );
-      }
+        if (node.data.target.sys.contentType.sys.id === "videoEmbed") {
+          return (
+            <iframe
+              src={node.data.target.fields.embedUrl}
+              height="100%"
+              width="100%"
+              frameBorder="0"
+              scrolling="no"
+              title={node.data.target.fields.title}
+              allowFullScreen={true}
+            />
+          );
+        }
       },
 
       [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
@@ -110,13 +113,13 @@ function HomeComponent() {
 
         return (
           <div className="image-wrapper float-start pe-4 ">
-         <Image fluid rounded
-            src={`https://${node.data.target.fields.file.url}`}
-            height={node.data.target.fields.file.details.image.height}
-            width={node.data.target.fields.file.details.image.width}
-            alt={node.data.target.fields.description} />
-        </div>
-      
+            <Image fluid rounded
+              src={`https://${node.data.target.fields.file.url}`}
+              height={node.data.target.fields.file.details.image.height}
+              width={node.data.target.fields.file.details.image.width}
+              alt={node.data.target.fields.description} />
+          </div>
+
         );
       }
     }
@@ -128,45 +131,45 @@ function HomeComponent() {
 
         <Row className="mt-5">
           <Col>
-          <Carousel>
-  <Carousel.Item interval={1000}>
-    <img
-      className="d-block w-100"
-      src="https://source.unsplash.com/random/780x400?sky" fluid rounded
-      alt="First slide"
+            <Carousel>
+              <Carousel.Item interval={1000}>
+                <img
+                  className="d-block w-100"
+                  src="https://source.unsplash.com/random/780x400?sky" fluid rounded
+                  alt="First slide"
 
 
-    />
-    <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item interval={500}>
-    <img
-      className="d-block w-100"
-      src="https://source.unsplash.com/random/780x400?falls" fluid rounded
-      alt="Second slide"
-    />
-    <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="https://source.unsplash.com/random/780x400?water" fluid rounded
-      alt="Third slide"
-    />
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-</Carousel>
+                />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item interval={500}>
+                <img
+                  className="d-block w-100"
+                  src="https://source.unsplash.com/random/780x400?falls" fluid rounded
+                  alt="Second slide"
+                />
+                <Carousel.Caption>
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="https://source.unsplash.com/random/780x400?water" fluid rounded
+                  alt="Third slide"
+                />
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            </Carousel>
           </Col>
-          </Row>
+        </Row>
 
         {getContents()}
       </Container>
