@@ -9,7 +9,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
-function BodyComponent() {
+function HomeComponent() {
 
   const [items, setItems] = useState([]);
 
@@ -130,4 +130,4 @@ function BodyComponent() {
   );
 }
 
-export default BodyComponent;
+export default HomeComponent;

@@ -10,7 +10,7 @@ function NavbarComponent() {
       <Container fluid>
         <Navbar style={{backgroundColor:"#ce2127"}} expand="lg">
           <Container>
-            <Navbar.Brand href="/">Neerej</Navbar.Brand>
+            <Navbar.Brand href="/">SG Tailor</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -22,6 +22,9 @@ function NavbarComponent() {
                 </LinkContainer>
                 <LinkContainer to="/services">
                   <Nav.Link>Services</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/contactus">
+                  <Nav.Link>Contact Us</Nav.Link>
                 </LinkContainer>
               </Nav>
             </Navbar.Collapse>

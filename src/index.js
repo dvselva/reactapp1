@@ -12,6 +12,7 @@ import {
 import AboutComponent from './AboutComponent';
 import ServicesComponent from './ServicesComponent';
 import NavbarComponent from './NavbarComponent';
+import ContactsComponent from './ContactsComponent';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,6 +24,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="about" element={<AboutComponent />} />
         <Route path="services" element={<ServicesComponent />} />
+        <Route path="contactus" element={<ContactsComponent />} />
       </Routes>
     </BrowserRouter>,
 
