@@ -130,9 +130,8 @@ function AllProductsComponent(props) {
 
     })
 
-    return  <div className="row"> 
-    <h2>{props.title}</h2>
-    <div className="col-md-4">
+    return <div><div className="header-style">{props.title}</div> <div className="row"> 
+        <div className="col-md-4">
     {columns1Array}
     </div>
     <div className="col-md-4">
@@ -141,7 +140,7 @@ function AllProductsComponent(props) {
     <div className="col-md-4">
     {columns3Array}
     </div>
-
+    </div>
     </div>;
   }
 
@@ -178,11 +177,11 @@ function AllProductsComponent(props) {
       
     });
 
-    return <div><h2>{props.title}</h2>{contentsArray}</div>;
+    return <div> <div className="header-style">{props.title}</div>{contentsArray}</div>;
   
   }
   return (
-    <div className="container">
+    <div className="container" style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
 
       {!loading && props.mode==='all' ? getContents(): !loading && props.mode==='top' ? getTopContents():<div>Loading...</div> }
       

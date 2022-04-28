@@ -47,7 +47,7 @@ function ServicesComponent() {
 
     })
 
-    return <div><h2>Services</h2>{contentsArray}</div>;
+    return <div><div className="header-style">Services</div>{contentsArray}</div>;
   }
   const renderOptions = {
     renderNode: {
@@ -94,7 +94,7 @@ function ServicesComponent() {
   }
   return (
     <div>
-      <Container>
+      <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
       {getContents()}
     </Container>
     </div>

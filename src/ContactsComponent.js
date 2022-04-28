@@ -90,10 +90,10 @@ function ContactsComponent() {
   }
   return (
     <div>
-      <Container>
+      <Container style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"25px"}}>
       <Row className="mt-3">
         <Col>
-        <h1>Contact Us</h1>
+        <div className="header-style">Contact Us </div>
         </Col>
       </Row>
       <Row className="mt-3">

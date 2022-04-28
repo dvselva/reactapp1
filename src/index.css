@@ -43,3 +43,14 @@ a {
   color: #ce2127;
   text-decoration: none;
 }
+
+body {
+  background-color: #ebebeb !important
+
+}
+
+.header-style {
+  border-bottom: 1px solid #ce2127;
+  font-size:24px;
+  padding-top: 10px;
+}

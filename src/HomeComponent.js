@@ -131,14 +131,14 @@ function HomeComponent() {
     <div className="container">
 
       {/* {!loading ? */}
-      <Row className="mt-4">
+      <Row>
         <Col md={8}>
-          <Row>
+          <Row  >
             <Col md={12}>
             <AboutComponent/>
             </Col>
           </Row>
-          <Row>
+          <Row >
             <Col>
              <ServicesComponent/>
             </Col>

@@ -47,7 +47,7 @@ function AboutComponent() {
 
     })
 
-    return <div><h2>About Us</h2>{contentsArray}</div>;
+    return <div><div className="header-style">About Us</div>{contentsArray}</div>;
   }
   const renderOptions = {
     renderNode: {
@@ -94,7 +94,7 @@ function AboutComponent() {
   }
   return (
     <div>
-      <Container>
+      <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
       {getContents()}
     </Container>
     </div>
