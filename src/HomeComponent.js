@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
-import Carousel from 'react-bootstrap/Carousel'
+// import Container from 'react-bootstrap/Container';
+// import Row from 'react-bootstrap/Row'
+// import Col from 'react-bootstrap/Col'
+// import Image from 'react-bootstrap/Image'
+// import Carousel from 'react-bootstrap/Carousel'
 
 import * as contentful from 'contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
@@ -13,6 +13,7 @@ import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 function HomeComponent() {
 
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -21,6 +22,23 @@ function HomeComponent() {
   }, []);
 
 
+  const splitItems = () => {
+    var perChunk = Math.floor(items.length / 3)
+    var result = items.reduce((resultArray, item, index) => {
+      const chunkIndex = Math.floor(index / perChunk)
+
+      if (!resultArray[chunkIndex]) {
+        resultArray[chunkIndex] = [] // start a new chunk
+      }
+
+      resultArray[chunkIndex].push(item)
+
+      return resultArray
+    }, [])
+
+    console.log(result); // result: [['a','b'], ['c','d'], ['e']]
+    return result;
+  }
   const fetchProducts = async () => {
 
     let contentfulClient = contentful.createClient({
@@ -34,51 +52,112 @@ function HomeComponent() {
     })
       .then(function (entries) {
         setItems(entries.items);
+        setLoading(false);
+
       })
   }
 
   const getContents = () => {
     const contentsArray = []
-    items.forEach((item, index) => {
-      console.log(item.fields.name);
-      let rawRichTextField = item.fields.description;
-      console.log(documentToHtmlString(rawRichTextField));
-      let imageUrl = "https://placeholder.pics/svg/300";
-      if (item.fields.image && item.fields.image.length > 0) {
-        imageUrl = item.fields.image[0].fields.file.url;
-      }
 
-      // contentsArray.push(<Row style={{ marginTop: "20px", marginBottom: "20px" }}>
-        contentsArray.push(
-          <Col md={4} className="mt-3">
-            <div class="card" style={{width: "18re"}}>
-            <Image src={imageUrl} class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">{item.fields.name}</h5>
-              {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a> */}
+
+    // console.log(splitItems(items));
+    const resultsArray = splitItems(items);
+
+    const columns1Array =[];
+    const columns2Array =[];
+    const columns3Array =[];
+
+    resultsArray.forEach((entries, outerindex) => {
+
+      let columnsArray = [];
+      entries.forEach((entry, index) => {
+
+        let imageUrl = "https://placeholder.pics/svg/300";
+
+        try {
+        if (entry.fields.image && entry.fields.image.length > 0) {
+          imageUrl = entry.fields.image[0].fields.file.url;
+        }
+      }
+      catch {
+          console.log("error");
+      }
+      columnsArray.push(<div className="row mt-3">
+       <div className="col-md-12" >
+          <div className="card" >
+            <img src={imageUrl} className="card-img-top" alt="..." />
+            <div className="card-body">
+              <h5 className="card-title">{entry.fields.name}</h5>
             </div>
           </div>
+        </div>
+        </div>
+      )
+      })
 
-        </Col>
-      //  <Col md={8}>
-      //     <div class="col-md-12">
-      //       <h3>{item.fields.name}</h3>
-      //     </div>
-      //     <div className="col-md-12">
-      //       <div>
-      //         {documentToReactComponents(item.fields.description, renderOptions)}
+      if (outerindex ===0 ){
+        columns1Array.push(columnsArray);
+      }
+      else if (outerindex ===1) {
+        columns2Array.push (columnsArray);
+        }
+      else {
+        columns3Array.push(columnsArray)
+      }
+
+    })
+
+
+    // items.forEach((item, index) => {
+    //   console.log(item.fields.name);
+    //   let rawRichTextField = item.fields.description;
+    //   console.log(documentToHtmlString(rawRichTextField));
+    //   let imageUrl = "https://placeholder.pics/svg/300";
+    //   if (item.fields.image && item.fields.image.length > 0) {
+    //     imageUrl = item.fields.image[0].fields.file.url;
+    //   }
+
+      // contentsArray.push(
+      //   <div className="col-sm-6 col-lg-4" >
+      //     <div class="card" >
+      //       <img src={imageUrl} className="card-img-top" alt="..." />
+      //       <div className="card-body">
+      //         <h5 className="card-title">{item.fields.name}</h5>
+             
       //       </div>
       //     </div>
-      //   </Col>
-   
+
+      //   </div>
+        //  <Col md={8}>
+        //     <div class="col-md-12">
+        //       <h3>{item.fields.name}</h3>
+        //     </div>
+        //     <div className="col-md-12">
+        //       <div>
+        //         {documentToReactComponents(item.fields.description, renderOptions)}
+        //       </div>
+        //     </div>
+        //   </Col>
 
 
-    )
-  });
-  
 
-    return <Row>{contentsArray}</Row>;
+    //   )
+    // });
+
+
+    return <div className="row"> 
+    <div className="col-md-4">
+    {columns3Array}
+    </div>
+    <div className="col-md-4">
+    {columns2Array}
+    </div>
+    <div className="col-md-4">
+    {columns1Array}
+    </div>
+
+    </div>;
   }
 
   const renderOptions = {
@@ -113,7 +192,7 @@ function HomeComponent() {
 
         return (
           <div className="image-wrapper float-start pe-4 ">
-            <Image fluid rounded
+            <img className="img-fluid rounded"
               src={`https://${node.data.target.fields.file.url}`}
               height={node.data.target.fields.file.details.image.height}
               width={node.data.target.fields.file.details.image.width}
@@ -126,53 +205,11 @@ function HomeComponent() {
   }
 
   return (
-    <div>
-      <Container  >
+    <div className="container">
 
-        <Row className="mt-5">
-          <Col>
-            <Carousel>
-              <Carousel.Item interval={1000}>
-                <img
-                  className="d-block w-100"
-                  src="https://source.unsplash.com/random/780x400?sky" fluid rounded
-                  alt="First slide"
-
-
-                />
-                <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item interval={500}>
-                <img
-                  className="d-block w-100"
-                  src="https://source.unsplash.com/random/780x400?falls" fluid rounded
-                  alt="Second slide"
-                />
-                <Carousel.Caption>
-                  <h3>Second slide label</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="https://source.unsplash.com/random/780x400?water" fluid rounded
-                  alt="Third slide"
-                />
-                <Carousel.Caption>
-                  <h3>Third slide label</h3>
-                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
-          </Col>
-        </Row>
-
-        {getContents()}
-      </Container>
+      {!loading ?getContents():<div>Loadning </div>}
+      
+      {/* </Container> */}
     </div >
   );
 }
