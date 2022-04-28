@@ -47,7 +47,7 @@ function AboutComponent() {
 
     })
 
-    return contentsArray;
+    return <div><h2>About Us</h2>{contentsArray}</div>;
   }
   const renderOptions = {
     renderNode: {

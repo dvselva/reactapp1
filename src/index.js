@@ -13,6 +13,7 @@ import AboutComponent from './AboutComponent';
 import ServicesComponent from './ServicesComponent';
 import NavbarComponent from './NavbarComponent';
 import ContactsComponent from './ContactsComponent';
+import AllProductsComponent from './AllProductsComponent';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,6 +26,7 @@ root.render(
         <Route path="about" element={<AboutComponent />} />
         <Route path="services" element={<ServicesComponent />} />
         <Route path="contactus" element={<ContactsComponent />} />
+        <Route path="allsamples" element={<AllProductsComponent mode="all"  title="All Samples"/>} />
       </Routes>
     </BrowserRouter>,
 

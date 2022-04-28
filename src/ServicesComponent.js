@@ -47,7 +47,7 @@ function ServicesComponent() {
 
     })
 
-    return contentsArray;
+    return <div><h2>Services</h2>{contentsArray}</div>;
   }
   const renderOptions = {
     renderNode: {

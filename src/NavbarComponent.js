@@ -26,6 +26,9 @@ function NavbarComponent() {
                 <LinkContainer to="/contactus">
                   <Nav.Link>Contact Us</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to="/allsamples">
+                  <Nav.Link>All Samples</Nav.Link>
+                </LinkContainer>
               </Nav>
             </Navbar.Collapse>
           </Container>
