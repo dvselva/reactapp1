@@ -163,6 +163,7 @@ function AllProductsComponent(props) {
       }
 
      contentsArray.push(
+      <a href={imageUrl}>
         <div className="col-md-12 mt-5" >
           <div class="card" >
             <img src={imageUrl} className="card-img-top" alt="..." />
@@ -171,8 +172,8 @@ function AllProductsComponent(props) {
              
             </div>
           </div>
-
         </div>
+        </a>
       )
       
     });
