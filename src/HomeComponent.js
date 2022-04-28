@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import * as contentful from 'contentful';
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 // import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+// import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
 function HomeComponent() {
 
