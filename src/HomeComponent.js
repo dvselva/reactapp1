@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import * as contentful from 'contentful';
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 // import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-// import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+
 
 function HomeComponent() {
 
@@ -23,7 +23,7 @@ function HomeComponent() {
 
 
   const splitItems = () => {
-    var perChunk = Math.floor(items.length / 3)
+    var perChunk = Math.ceil(items.length / 3)
     var result = items.reduce((resultArray, item, index) => {
       const chunkIndex = Math.floor(index / perChunk)
 
@@ -84,14 +84,16 @@ function HomeComponent() {
           console.log("error");
       }
       columnsArray.push(<div className="row mt-3">
+        <a href={imageUrl}>
        <div className="col-md-12" >
           <div className="card" >
             <img src={imageUrl} className="card-img-top" alt="..." />
             <div className="card-body">
-              <h5 className="card-title">{entry.fields.name}</h5>
+              <h5 className="card-title" style={{textDecoration:"none",textUnderline:"none"}}>{entry.fields.name}</h5>
             </div>
           </div>
         </div>
+        </a>
         </div>
       )
       })
@@ -148,13 +150,13 @@ function HomeComponent() {
 
     return <div className="row"> 
     <div className="col-md-4">
-    {columns3Array}
+    {columns1Array}
     </div>
     <div className="col-md-4">
     {columns2Array}
     </div>
     <div className="col-md-4">
-    {columns1Array}
+    {columns3Array}
     </div>
 
     </div>;
