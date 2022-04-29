@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import * as contentfulManagement from 'contentful-management';
 import { useNavigate } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert'
 
 function ContactsComponent() {
 
@@ -15,6 +16,10 @@ function ContactsComponent() {
   let [EmailAddress, setEmailAddress] = useState('');
   let [PhoneNumber, setPhoneNumber] = useState('');
   let [Comments, setComments] = useState('');
+  let [error, setError] = useState(false);
+  let [success, setSuccess] = useState(false);
+  const [show, setShow] = useState(true);
+
   
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -27,13 +32,14 @@ function ContactsComponent() {
     event.preventDefault();
     if (form.checkValidity() === true)
     {
-      saveItem();
+      saveItem(event);
+    
     }
     
 
   };
 
-  const saveItem = () =>{
+  const saveItem = (event) =>{
 
     const cmaClient = contentfulManagement.createClient({
       accessToken: 'CFPAT-S5TFiDwbI88Uj-0XSckV8Urhi09tyuN2DHf9aJ92Um0'
@@ -63,12 +69,23 @@ function ContactsComponent() {
         }))
         .then((entry) => {
             console.log(entry)
-            alert ("added item successfully");
+            // alert ("added item successfully");
+            setSuccess(true);
+     
+            setComments('');
+            setName('');
+            setPhoneNumber('');
+            setEmailAddress('');
+            setValidated(false);
+            setShow(true);
             entry.publish();
-            navigate("/");
+            // navigate("/");
         }
        )
-        .catch(console.error)
+        .catch(() => {
+          setError(true);
+
+        });
 
 
   }
@@ -100,10 +117,12 @@ function ContactsComponent() {
         <Col>
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
         </Col>
-      </Row>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      </Row> 
+      <Form noValidate validated={validated} onSubmit={handleSubmit} id="contactForm" className="mb-5" 
+
+      >
       <Row className="mb-3 mt-2">
-        <Form.Group as={Col} md="8" controlId="name">
+        <Form.Group as={Col} md={8}  controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             required
@@ -154,9 +173,15 @@ function ContactsComponent() {
      
     
       <Button type="submit">Submit</Button>
+
     </Form>
 
-
+    {success && show? <Alert key="success" variant="success" dismissible  onClose={() =>{setShow(false);navigate("/");}}> Saved your comment/question successfully. we will get in touch with you soon </Alert> 
+    :null
+  }
+   {error && show? <Alert key="danger" variant="danger" dismissible  onClose={() => setShow(false)}> Sorry something went wrong. please try again later </Alert> 
+    :null
+  }
     </Container>
     </div>
   );

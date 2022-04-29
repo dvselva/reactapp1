@@ -163,7 +163,7 @@ function AllProductsComponent(props) {
 
      contentsArray.push(
       <a href={imageUrl}>
-        <div className="col-md-12 mt-5" >
+        <div className="col-md-12 mt-3" >
           <div class="card" >
             <img src={imageUrl} className="card-img-top" alt="..." />
             <div className="card-body">
@@ -181,7 +181,7 @@ function AllProductsComponent(props) {
   
   }
   return (
-    <div className="container" style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
+    <div className="container" style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"20px"}}>
 
       {!loading && props.mode==='all' ? getContents(): !loading && props.mode==='top' ? getTopContents():<div>Loading...</div> }
       
