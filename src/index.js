@@ -28,6 +28,8 @@ root.render(
         <Route path="contactus" element={<ContactsComponent />} />
         <Route path="allsamples" element={<AllProductsComponent mode="all"  title="All Samples"/>} />
       </Routes>
+      {/* <NavbarComponent /> */}
+
     </BrowserRouter>,
 
 
