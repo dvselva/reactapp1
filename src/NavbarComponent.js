@@ -51,7 +51,7 @@ function NavbarComponent() {
           height="30"
           className="d-inline-block align-top"
         />{' '}
-            SG Tailor</Navbar.Brand>
+            SGStitches</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
