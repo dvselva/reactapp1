@@ -14,7 +14,7 @@ code {
 
 .container {
   max-width: 1450px;
-  padding: 30px 100px;
+  /* padding: 30px 100px; */
 }
 .nav-link {
   color:white !important;
