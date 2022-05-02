@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 // import Carousel from 'react-bootstrap/Carousel'
 
 import * as contentful from 'contentful';
+import Spinner from 'react-bootstrap/Spinner';
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 // import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
@@ -183,7 +184,12 @@ function AllProductsComponent(props) {
   return (
     <div className="container" style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"20px"}}>
 
-      {!loading && props.mode==='all' ? getContents(): !loading && props.mode==='top' ? getTopContents():<div>Loading...</div> }
+      {!loading && props.mode==='all' ? getContents(): !loading && props.mode==='top' ? getTopContents():<div>
+      <Spinner animation="border" role="status" variant="danger">
+  <span className="visually-hidden">Loading...</span>
+</Spinner>
+
+      </div> }
       
     </div >
   );

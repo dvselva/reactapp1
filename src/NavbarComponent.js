@@ -37,6 +37,9 @@ function NavbarComponent() {
                 <LinkContainer to="/allsamples">
                   <Nav.Link>All Samples</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to="/faqs">
+                  <Nav.Link>FAQs</Nav.Link>
+                </LinkContainer>
               </Nav>
               <Nav>
                 <div style={{ color: 'white', fontSize: "30px" }}>  <FontAwesomeIcon icon={faPhone} style={{ color: "white" }} />  +1 (610) 563 6590  </div>

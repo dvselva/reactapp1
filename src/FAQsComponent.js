@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+// import Row from 'react-bootstrap/Row'
+// import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import Accordion from 'react-bootstrap/Accordion'
 
 
 function FAQsComponent() {
@@ -15,17 +16,17 @@ function FAQsComponent() {
 
 
   useEffect(() => {
-    fetchAbout();
+    fetchFAQs();
   }, []);
 
 
-  const fetchAbout = async () => {
+  const fetchFAQs = async () => {
 
     let contentfulClient = contentful.createClient({
       accessToken: '6o_DMSyLI7OSMmd434UXyAb2ILGS2R9F7c5h_lmsYWI',
       space: '9gf6mhyw2bkx'
     });
-    let PLAYER_CONTENT_TYPE_ID = 'yesgeAbout';
+    let PLAYER_CONTENT_TYPE_ID = 'yesgeFaqs';
 
     contentfulClient.getEntries({
       content_type: PLAYER_CONTENT_TYPE_ID
@@ -38,16 +39,22 @@ function FAQsComponent() {
   const getContents = () => {
     const contentsArray = []
     items.forEach((item, index) => {
-      console.log(item.fields.name);
-        contentsArray.push(<Row style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Col md={12}>
-                {documentToReactComponents(item.fields.description, renderOptions)}
-        </Col>
-      </Row>)
+      console.log(item.fields.question);
+        contentsArray.push(
+          
+          <Accordion.Item eventKey={index}>
+            <Accordion.Header>{item.fields.question}</Accordion.Header>
+            <Accordion.Body>
+            {documentToReactComponents(item.fields.answer, renderOptions)}
+            </Accordion.Body>
+          </Accordion.Item>
+
+        )
+    
 
     })
 
-    return <div><div className="header-style">About Us</div>{contentsArray}</div>;
+    return <div><div className="header-style">Frequently Asked Questions</div> <Accordion>{contentsArray}</Accordion></div>;
   }
   const renderOptions = {
     renderNode: {
@@ -94,7 +101,7 @@ function FAQsComponent() {
   }
   return (
     <div>
-      <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
+      <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"20px"}}>
       {getContents()}
     </Container>
     </div>

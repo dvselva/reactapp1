@@ -13,6 +13,7 @@ import AboutComponent from './AboutComponent';
 import ServicesComponent from './ServicesComponent';
 import NavbarComponent from './NavbarComponent';
 import ContactsComponent from './ContactsComponent';
+import FAQsComponent from './FAQsComponent';
 import AllProductsComponent from './AllProductsComponent';
 
 
@@ -27,6 +28,7 @@ root.render(
         <Route path="services" element={<ServicesComponent />} />
         <Route path="contactus" element={<ContactsComponent />} />
         <Route path="allsamples" element={<AllProductsComponent mode="all"  title="All Samples"/>} />
+        <Route path="faqs" element={<FAQsComponent />} />
       </Routes>
       {/* <NavbarComponent /> */}
 
