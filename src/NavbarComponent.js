@@ -16,7 +16,7 @@ function NavbarComponent() {
         <div style={{ paddingTop: "200px" }}></div>
         <Navbar style={{ backgroundColor: "#ce2127",opacity:".8" }} expand="lg">
 
-          <Container>
+          <Container fluid>
             <Navbar.Brand href="/">          
             SGStitches</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

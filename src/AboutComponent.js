@@ -6,11 +6,13 @@ import Image from 'react-bootstrap/Image'
 import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import Spinner from 'react-bootstrap/Spinner';
 
 
 function AboutComponent() {
 
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -32,6 +34,7 @@ function AboutComponent() {
     })
       .then(function (entries) {
         setItems(entries.items);
+        setLoading(false);
       })
   }
 
@@ -39,41 +42,42 @@ function AboutComponent() {
     const contentsArray = []
     items.forEach((item, index) => {
       console.log(item.fields.name);
-        contentsArray.push(<Row style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Col md={12}>
-                {documentToReactComponents(item.fields.description, renderOptions)}
+      contentsArray.push(<Row style={{ marginTop: "20px", marginBottom: "20px" }}>
+        <Col md={12}>
+          {documentToReactComponents(item.fields.description, renderOptions)}
         </Col>
       </Row>)
 
     })
 
-    return <div><div className="header-style">About Us</div>{contentsArray}</div>;
+    //  return <div><div className="header-style">About Us</div>{contentsArray}</div>;
+    return contentsArray;
   }
   const renderOptions = {
     renderNode: {
       [INLINES.EMBEDDED_ENTRY]: (node, children) => {
-          // target the contentType of the EMBEDDED_ENTRY to display as you need
-      if (node.data.target.sys.contentType.sys.id === "codeBlock") {
-        return (
-          <pre>
-            <code>{node.data.target.fields.code}</code>
-          </pre>
-        );
-      }
+        // target the contentType of the EMBEDDED_ENTRY to display as you need
+        if (node.data.target.sys.contentType.sys.id === "codeBlock") {
+          return (
+            <pre>
+              <code>{node.data.target.fields.code}</code>
+            </pre>
+          );
+        }
 
-      if (node.data.target.sys.contentType.sys.id === "videoEmbed") {
-        return (
-          <iframe
-            src={node.data.target.fields.embedUrl}
-            height="100%"
-            width="100%"
-            frameBorder="0"
-            scrolling="no"
-            title={node.data.target.fields.title}
-            allowFullScreen={true}
-          />
-        );
-      }
+        if (node.data.target.sys.contentType.sys.id === "videoEmbed") {
+          return (
+            <iframe
+              src={node.data.target.fields.embedUrl}
+              height="100%"
+              width="100%"
+              frameBorder="0"
+              scrolling="no"
+              title={node.data.target.fields.title}
+              allowFullScreen={true}
+            />
+          );
+        }
       },
 
       [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
@@ -81,22 +85,38 @@ function AboutComponent() {
 
         return (
           <div className="image-wrapper float-start pe-4 ">
-         <Image fluid rounded
-            src={`https://${node.data.target.fields.file.url}`}
-            height={node.data.target.fields.file.details.image.height}
-            width={node.data.target.fields.file.details.image.width}
-            alt={node.data.target.fields.description} />
-        </div>
-      
+            <Image fluid rounded
+              src={`https://${node.data.target.fields.file.url}`}
+              height={node.data.target.fields.file.details.image.height}
+              width={node.data.target.fields.file.details.image.width}
+              alt={node.data.target.fields.description} />
+          </div>
+
         );
       }
     }
   }
   return (
+
     <div>
-      <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
-      {getContents()}
-    </Container>
+
+      <Container style={{ backgroundColor: "white", marginTop: "20px", borderRadius: "10px", paddingBottom: "25px" }}>
+
+
+
+        {loading ? <Spinner animation="border" role="status" variant="danger">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner> :
+
+          <Row className="mt-3"> 
+            <Col>
+              <div className="header-style">Contact Us </div>
+            </Col></Row> } {getContents()}
+
+    
+
+      </Container>
+
     </div>
   );
 }
