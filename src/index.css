@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.container {
+  max-width: 1450px;
+}
 .nav-link {
   color:white !important;
   font-size: 20px;
