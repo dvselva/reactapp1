@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 // import Col from 'react-bootstrap/Col'
 // import Image from 'react-bootstrap/Image'
 // import Carousel from 'react-bootstrap/Carousel'
+import LayoutComponent from  './layout/LayoutComponent';
 
 import * as contentful from 'contentful';
 import Spinner from 'react-bootstrap/Spinner';
@@ -45,7 +46,7 @@ function AllProductsComponent(props) {
   const fetchProducts = async () => {
 
     let contentfulClient = contentful.createClient({
-      accessToken: '6o_DMSyLI7OSMmd434UXyAb2ILGS2R9F7c5h_lmsYWI',
+      accessToken:  process.env.REACT_APP_CDKEY,
       space: '9gf6mhyw2bkx'
     });
     let PLAYER_CONTENT_TYPE_ID = 'yesgeProducts';
@@ -182,16 +183,16 @@ function AllProductsComponent(props) {
   
   }
   return (
-    <div className="container" style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"20px"}}>
-
+    // <div className="container" style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"20px"}}>
+      <LayoutComponent>
       {!loading && props.mode==='all' ? getContents(): !loading && props.mode==='top' ? getTopContents():<div>
       <Spinner animation="border" role="status" variant="danger">
   <span className="visually-hidden">Loading...</span>
 </Spinner>
 
       </div> }
-      
-    </div >
+      </LayoutComponent>
+    // </div >
   );
 }
 

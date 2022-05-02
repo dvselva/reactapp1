@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
@@ -7,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import * as contentfulManagement from 'contentful-management';
 import { useNavigate } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert'
+import LayoutComponent  from './layout/LayoutComponent';
 
 function ContactsComponent() {
 
@@ -42,7 +42,7 @@ function ContactsComponent() {
   const saveItem = (event) =>{
 
     const cmaClient = contentfulManagement.createClient({
-      accessToken: 'CFPAT-S5TFiDwbI88Uj-0XSckV8Urhi09tyuN2DHf9aJ92Um0'
+      accessToken:  process.env.REACT_APP_CMKEY
   });
 
   cmaClient.getSpace('9gf6mhyw2bkx')
@@ -107,7 +107,8 @@ function ContactsComponent() {
   }
   return (
     <div>
-      <Container style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"25px"}}>
+     
+      <LayoutComponent>
       <Row className="mt-3">
         <Col>
         <div className="header-style">Contact Us </div>
@@ -182,7 +183,7 @@ function ContactsComponent() {
    {error && show? <Alert key="danger" variant="danger" dismissible  onClose={() => setShow(false)}> Sorry something went wrong. please try again later </Alert> 
     :null
   }
-    </Container>
+   </LayoutComponent>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
+// import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
@@ -7,6 +7,7 @@ import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Spinner from 'react-bootstrap/Spinner';
+import LayoutComponent from  './layout/LayoutComponent';
 
 
 
@@ -25,7 +26,7 @@ function ServicesComponent() {
   const fetchServices = async () => {
 
     let contentfulClient = contentful.createClient({
-      accessToken: '6o_DMSyLI7OSMmd434UXyAb2ILGS2R9F7c5h_lmsYWI',
+      accessToken:  process.env.REACT_APP_CDKEY,
       space: '9gf6mhyw2bkx'
     });
     let PLAYER_CONTENT_TYPE_ID = 'yesgeServices';
@@ -98,14 +99,16 @@ function ServicesComponent() {
   }
   return (
     <div>
-      <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
+       <LayoutComponent>
+      {/* <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}> */}
        {loading ? <Spinner animation="border" role="status" variant="danger">
           <span className="visually-hidden">Loading...</span>
         </Spinner> 
         :getContents() }
        
-      
-    </Container>
+{/*       
+    </Container> */}
+    </LayoutComponent>
     </div>
   );
 }
