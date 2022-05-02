@@ -6,11 +6,14 @@ import Image from 'react-bootstrap/Image'
 import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import Spinner from 'react-bootstrap/Spinner';
+
 
 
 function ServicesComponent() {
 
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -32,6 +35,7 @@ function ServicesComponent() {
     })
       .then(function (entries) {
         setItems(entries.items);
+        setLoading(false);
       })
   }
 
@@ -95,7 +99,12 @@ function ServicesComponent() {
   return (
     <div>
       <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px"}}>
-      {getContents()}
+       {loading ? <Spinner animation="border" role="status" variant="danger">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner> 
+        :getContents() }
+       
+      
     </Container>
     </div>
   );
