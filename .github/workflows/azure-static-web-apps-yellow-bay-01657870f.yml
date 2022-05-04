@@ -22,8 +22,8 @@ jobs:
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         env:
-          REACT_APP_CDKEY: '6o_DMSyLI7OSMmd434UXyAb2ILGS2R9F7c5h_lmsYWI' 
-          REACT_APP_CMKEY: 'CFPAT-S5TFiDwbI88Uj-0XSckV8Urhi09tyuN2DHf9aJ92Um0'
+          REACT_APP_CDKEY: $(REACT_APP_CDKEY) 
+          REACT_APP_CMKEY: $(REACT_APP_CMKEY)
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_YELLOW_BAY_01657870F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
