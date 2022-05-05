@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 // import Carousel from 'react-bootstrap/Carousel'
 import LayoutComponent from  './layout/LayoutComponent';
 
-import * as contentful from 'contentful';
+// import * as contentful from 'contentful';
 import Spinner from 'react-bootstrap/Spinner';
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 // import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -43,43 +43,71 @@ function AllProductsComponent(props) {
     console.log(result); 
     return result;
   }
-  const fetchProducts = async () => {
 
-    let contentfulClient = contentful.createClient({
-      accessToken:  process.env.REACT_APP_CDKEY,
-      space: '9gf6mhyw2bkx'
-    });
-    let PLAYER_CONTENT_TYPE_ID = 'yesgeProducts';
 
-    contentfulClient.getEntries({
-      content_type: PLAYER_CONTENT_TYPE_ID
-    })
-      .then(function (entries) {
-        setItems(entries.items);
-        setLoading(false);
 
-      })
+async function fetchProducts() {
+  try {
+    let response = await fetch('https://dvselva-api.azurewebsites.net/api/products-get');
+    let data = await response.json();
+    setItems(data);
+    setLoading(false);
+
+  } catch(err) {
+    // catches errors both in fetch and response.json
+    alert(err);
   }
+}
 
 
-  const fetchNewProducts = async () => {
+async function fetchNewProducts() {
+  try {
+    let response = await fetch('https://dvselva-api.azurewebsites.net/api/products-new-get');
+    let data = await response.json();
+    setnewItems(data);
+    setLoading(false);
+  } catch(err) {
+    // catches errors both in fetch and response.json
+    alert(err);
+  }
+}
 
-    let contentfulClient = contentful.createClient({
-      accessToken: '6o_DMSyLI7OSMmd434UXyAb2ILGS2R9F7c5h_lmsYWI',
-      space: '9gf6mhyw2bkx'
-    });
-    let PLAYER_CONTENT_TYPE_ID = 'yesgeProducts';
+  // const fetchProducts = async () => {
+  //   let contentfulClient = contentful.createClient({
+  //     accessToken:  process.env.REACT_APP_CDKEY,
+  //     space: '9gf6mhyw2bkx'
+  //   });
+  //   let PLAYER_CONTENT_TYPE_ID = 'yesgeProducts';
+
+  //   contentfulClient.getEntries({
+  //     content_type: PLAYER_CONTENT_TYPE_ID
+  //   })
+  //     .then(function (entries) {
+  //       setItems(entries.items);
+  //       setLoading(false);
+
+  //     })
+  // }
+
+
+  // const fetchNewProducts = async () => {
+
+  //   let contentfulClient = contentful.createClient({
+  //     accessToken: '6o_DMSyLI7OSMmd434UXyAb2ILGS2R9F7c5h_lmsYWI',
+  //     space: '9gf6mhyw2bkx'
+  //   });
+  //   let PLAYER_CONTENT_TYPE_ID = 'yesgeProducts';
   
-    contentfulClient.getEntries({
-      content_type: PLAYER_CONTENT_TYPE_ID,
-      'metadata.tags.sys.id[in]': 'new,latest'
-    })
-      .then(function (entries) {
-        setnewItems(entries.items);
-        setLoading(false);
+  //   contentfulClient.getEntries({
+  //     content_type: PLAYER_CONTENT_TYPE_ID,
+  //     'metadata.tags.sys.id[in]': 'new,latest'
+  //   })
+  //     .then(function (entries) {
+  //       setnewItems(entries.items);
+  //       setLoading(false);
 
-      })
-  }
+  //     })
+  // }
 
 
   const getContents = () => {
