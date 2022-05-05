@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import * as contentfulManagement from 'contentful-management';
+// import * as contentfulManagement from 'contentful-management';
 import { useNavigate } from "react-router-dom";
 import Alert from 'react-bootstrap/Alert'
 import LayoutComponent  from './layout/LayoutComponent';
@@ -32,63 +32,124 @@ function ContactsComponent() {
     event.preventDefault();
     if (form.checkValidity() === true)
     {
-      saveItem(event);
+      // saveItemv1(event);
+      asyncPostCall();
     
     }
     
 
   };
 
-  const saveItem = (event) =>{
+  // const saveItemv1 = (event) => {
+    
+// async saveItemv1 =() => {
+  const asyncPostCall = async () => {
+    try {
+      const response = await fetch('https://dvselva-api.azurewebsites.net/api/contacts-post', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+          name:Name,
+          emailAddress:EmailAddress,
+          phoneNumber:PhoneNumber,
+          comments:Comments
+          })
+       });
+       const data = await response.json();
+        console.log(data);
+        setSuccess(true);
+        setComments('');
+        setName('');
+        setPhoneNumber('');
+        setEmailAddress('');
+        setValidated(false);
+        setShow(true);
 
-    const cmaClient = contentfulManagement.createClient({
-      accessToken:  process.env.REACT_APP_CMKEY
-  });
-
-  cmaClient.getSpace('9gf6mhyw2bkx')
-        .then((space) => space.getEnvironment('master'))
-        .then((environment) => environment.createEntry('yesgeContactus', {
-            fields: {
-                name: {
-                    'en-US': Name
-        
-                },
-                emailAddress: {
-                    'en-US': EmailAddress
-        
-                },
-                phoneNumber: {
-                  'en-US': PhoneNumber
-      
-              },
-                comments: {
-                    'en-US': Comments
-        
-                }
-            }
-        }))
-        .then((entry) => {
-            console.log(entry)
-            // alert ("added item successfully");
-            setSuccess(true);
-     
-            setComments('');
-            setName('');
-            setPhoneNumber('');
-            setEmailAddress('');
-            setValidated(false);
-            setShow(true);
-            entry.publish();
-            // navigate("/");
-        }
-       )
-        .catch(() => {
-          setError(true);
-
-        });
-
-
+     } catch(error) {
+         console.log(error)
+         setError(true);
+       } 
   }
+  
+
+
+// async function saveItemv1() {
+//     const settings = {
+//       method: 'POST',
+//       headers: {
+//           Accept: 'application/json',
+//           'Content-Type': 'application/json',
+//       },
+//       body: {
+//         name:Name,
+//         emailAddress:EmailAddress,
+//         phoneNumber:PhoneNumber,
+//         comments:Comments
+//       }
+
+//     }
+
+//     try {
+//       const postResponse = await fetch('http://localhost:7071/api/contacts-post', settings);
+//       const data = await postResponse.json();
+//       console.log(data);
+//   } catch (e) {
+//       return e;
+//   }  
+
+//   }
+  // const saveItem = (event) =>{
+
+  //   const cmaClient = contentfulManagement.createClient({
+  //     accessToken:  process.env.REACT_APP_CMKEY
+  // });
+
+  // cmaClient.getSpace('9gf6mhyw2bkx')
+  //       .then((space) => space.getEnvironment('master'))
+  //       .then((environment) => environment.createEntry('yesgeContactus', {
+  //           fields: {
+  //               name: {
+  //                   'en-US': Name
+        
+  //               },
+  //               emailAddress: {
+  //                   'en-US': EmailAddress
+        
+  //               },
+  //               phoneNumber: {
+  //                 'en-US': PhoneNumber
+      
+  //             },
+  //               comments: {
+  //                   'en-US': Comments
+        
+  //               }
+  //           }
+  //       }))
+  //       .then((entry) => {
+  //           console.log(entry)
+  //           // alert ("added item successfully");
+  //           setSuccess(true);
+     
+  //           setComments('');
+  //           setName('');
+  //           setPhoneNumber('');
+  //           setEmailAddress('');
+  //           setValidated(false);
+  //           setShow(true);
+  //           entry.publish();
+  //           // navigate("/");
+  //       }
+  //      )
+  //       .catch(() => {
+  //         setError(true);
+
+  //       });
+
+
+  // }
 
   const handleChange = (event) => {
     if (event.target.id === "name")
