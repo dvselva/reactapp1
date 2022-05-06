@@ -24,6 +24,8 @@ jobs:
         env:
           REACT_APP_CDKEY: ${{ secrets.REACT_APP_CDKEY }}
           REACT_APP_CMKEY: ${{ secrets.REACT_APP_CMKEY }}
+          REACT_APP_URL: ${{ secrets.REACT_APP_URL }}
+        
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_YELLOW_BAY_01657870F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)

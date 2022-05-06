@@ -26,7 +26,7 @@ function ServicesComponent() {
   
   async function fetchServices() {
     try {
-      let response = await fetch('https://dvselva-api.azurewebsites.net/api/getdata?type=services');
+      let response = await fetch(process.env.REACT_APP_URL+ '/api/getdata?type=services');
       let data = await response.json();
       setItems(data);
       setLoading(false);

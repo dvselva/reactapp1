@@ -45,7 +45,7 @@ function ContactsComponent() {
 // async saveItemv1 =() => {
   const asyncPostCall = async () => {
     try {
-      const response = await fetch('https://dvselva-api.azurewebsites.net/api/contacts-post', {
+      const response = await fetch(process.env.REACT_APP_URL+ '/api/contacts-post', {
        method: 'POST',
        headers: {
          'Content-Type': 'application/json'

@@ -26,7 +26,7 @@ function FAQsComponent() {
 
   async function fetchFAQs() {
     try {
-      let response = await fetch('https://dvselva-api.azurewebsites.net/api/getdata?type=faqs');
+      let response = await fetch(process.env.REACT_APP_URL+ '/api/getdata?type=faqs');
       let data = await response.json();
       setItems(data);
       setLoading(false);

@@ -62,7 +62,7 @@ async function fetchProducts() {
 
 async function fetchNewProducts() {
   try {
-    let response = await fetch('https://dvselva-api.azurewebsites.net/api/products-new-get');
+    let response = await fetch(process.env.REACT_APP_URL+ '/api/products-new-get');
     let data = await response.json();
     setnewItems(data);
     setLoading(false);

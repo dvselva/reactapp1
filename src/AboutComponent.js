@@ -22,7 +22,7 @@ function AboutComponent() {
 
   async function fetchAbout() {
     try {
-      let response = await fetch('https://dvselva-api.azurewebsites.net/api/getdata?type=about');
+      let response = await fetch(process.env.REACT_APP_URL+ '/api/getdata?type=about');
       let data = await response.json();
       setItems(data);
       setLoading(false);
