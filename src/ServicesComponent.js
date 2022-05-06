@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
-import * as contentful from 'contentful';
+// import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Spinner from 'react-bootstrap/Spinner';
@@ -23,8 +23,22 @@ function ServicesComponent() {
   }, []);
 
 
-  const fetchServices = async () => {
+  
+  async function fetchServices() {
+    try {
+      let response = await fetch('https://dvselva-api.azurewebsites.net/api/getdata?type=services');
+      let data = await response.json();
+      setItems(data);
+      setLoading(false);
+  
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      alert(err);
+    }
+  }
 
+  /*
+  const fetchServices = async () => {
     let contentfulClient = contentful.createClient({
       accessToken:  process.env.REACT_APP_CDKEY,
       space: '9gf6mhyw2bkx'
@@ -39,6 +53,7 @@ function ServicesComponent() {
         setLoading(false);
       })
   }
+  */
 
   const getContents = () => {
     const contentsArray = []

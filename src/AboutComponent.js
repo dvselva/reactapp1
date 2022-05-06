@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
-import * as contentful from 'contentful';
+// import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Spinner from 'react-bootstrap/Spinner';
@@ -14,31 +14,43 @@ function AboutComponent() {
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-
-
-
   useEffect(() => {
     fetchAbout();
   }, []);
 
 
-  const fetchAbout = async () => {
-    // const { CDKEY } = process.env.CDKEY;
-    console.log ("access key:" + process.env.CDKEY)
-    let contentfulClient = contentful.createClient({
-      accessToken: process.env.REACT_APP_CDKEY,
-      space: '9gf6mhyw2bkx'
-    });
-    let PLAYER_CONTENT_TYPE_ID = 'yesgeAbout';
 
-    contentfulClient.getEntries({
-      content_type: PLAYER_CONTENT_TYPE_ID
-    })
-      .then(function (entries) {
-        setItems(entries.items);
-        setLoading(false);
-      })
+  async function fetchAbout() {
+    try {
+      let response = await fetch('https://dvselva-api.azurewebsites.net/api/getdata?type=about');
+      let data = await response.json();
+      setItems(data);
+      setLoading(false);
+  
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      alert(err);
+    }
   }
+
+
+  // const fetchAbout = async () => {
+    
+  //   console.log ("access key:" + process.env.CDKEY)
+  //   let contentfulClient = contentful.createClient({
+  //     accessToken: process.env.REACT_APP_CDKEY,
+  //     space: '9gf6mhyw2bkx'
+  //   });
+  //   let PLAYER_CONTENT_TYPE_ID = 'yesgeAbout';
+
+  //   contentfulClient.getEntries({
+  //     content_type: PLAYER_CONTENT_TYPE_ID
+  //   })
+  //     .then(function (entries) {
+  //       setItems(entries.items);
+  //       setLoading(false);
+  //     })
+  // }
 
   const getContents = () => {
     const contentsArray = []

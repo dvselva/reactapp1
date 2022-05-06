@@ -3,16 +3,19 @@ import React, { useState, useEffect } from 'react';
 // import Row from 'react-bootstrap/Row'
 // import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
-import * as contentful from 'contentful';
+// import * as contentful from 'contentful';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Accordion from 'react-bootstrap/Accordion'
 import LayoutComponent from  './layout/LayoutComponent';
+import Spinner from 'react-bootstrap/Spinner';
+
 
 
 function FAQsComponent() {
 
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -21,6 +24,20 @@ function FAQsComponent() {
   }, []);
 
 
+  async function fetchFAQs() {
+    try {
+      let response = await fetch('https://dvselva-api.azurewebsites.net/api/getdata?type=faqs');
+      let data = await response.json();
+      setItems(data);
+      setLoading(false);
+  
+    } catch(err) {
+      // catches errors both in fetch and response.json
+      alert(err);
+    }
+  }
+ 
+  /*
   const fetchFAQs = async () => {
 
     let contentfulClient = contentful.createClient({
@@ -36,7 +53,7 @@ function FAQsComponent() {
         setItems(entries.items);
       })
   }
-
+*/
   const getContents = () => {
     const contentsArray = []
     items.forEach((item, index) => {
@@ -104,7 +121,11 @@ function FAQsComponent() {
     <div>
       {/* <Container  style={{backgroundColor:"white",marginTop:"20px",borderRadius:"10px",paddingBottom:"20px"}}> */}
 <LayoutComponent>
-      {getContents()}
+{loading ? <Spinner animation="border" role="status" variant="danger">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner> :
+      getContents()
+  }
       </LayoutComponent>
     {/* </Container> */}
     </div>
